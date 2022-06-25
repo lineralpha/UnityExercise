@@ -48,6 +48,8 @@ namespace UnityExercise.Web.Controllers
             // return CreatedAtAction("Details", new { id = id }, input);
 
             await _messageSender.SendMessageAsync<PayloadCreateInput>(input);
+
+            // return the input for demo and test-ability
             return CreatedAtAction("Details", input);
         }
 

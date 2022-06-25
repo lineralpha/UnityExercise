@@ -1,7 +1,3 @@
-# The eol=lf forces text files converted to lf when checking out into working-tree,
-# which isn't intended.
-# * text=auto eol=lf
-
 # Set default behavior to automatically normalize line endings.
 * text=auto
 

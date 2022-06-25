@@ -11,7 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnityExercise.Services", "U
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{05D7F26E-2A7B-40F1-893E-B05060B77B97}"
 	ProjectSection(SolutionItems) = preProject
-		InitDb.sql = InitDb.sql
 		ReadMe.md = ReadMe.md
 		Take Home Assignment.pdf = Take Home Assignment.pdf
 		UnityExercise-WebApi.JPG = UnityExercise-WebApi.JPG

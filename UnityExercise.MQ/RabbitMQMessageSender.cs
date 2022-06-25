@@ -60,7 +60,6 @@ namespace UnityExercise.MQ
             }
             catch (Exception ex)
             {
-                // TODO: process exception
                 // BrokerUnreachableException
                 _logger.LogCritical("Cannot connect to RabbitMQ ({0}): {1}", _rabbitmqConfig.Hostname, ex.Message);
             }

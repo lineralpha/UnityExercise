@@ -3,7 +3,7 @@
 There are 3 projects. Key components and services:
 - UnityExercise.Web: for the REST API.
   1. PayloadController: the controller for handling http requests. It calls <code>PayloadValidator</code> to validate client input before sending the input data to the message queue.
-- UnityExercise.MQ: for RabbitMQ access. It sits in the middle between the Web and services layers for data transfer.
+- UnityExercise.MQ: for RabbitMQ access. It sits in the middle between the Web and services layers for data transfer/transformation.
   1. IMessageSender: a service that can be used by message sender (the PayloadController in web layer).
   2. IMessageReceiver: an interface implemented by message receiver. The handler is triggered when the message queue has a new message (the service layer implements this handler). 
   3. RabbitMQReceiverBackgroundService: a long running background service monitoring message queue for message arrival and notifying message receivers.
