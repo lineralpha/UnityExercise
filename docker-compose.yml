@@ -1,0 +1,44 @@
+version: '3.6'
+
+services:
+    rabbitmq-server:
+        hostname: rabbitmq-server
+        container_name: rabbitmq-server
+        ports:
+            - 5672:5672
+            - 15672:15672
+        environment:
+            - RABBITMQ_DEFAULT_USER=guest
+            - RABBITMQ_DEFAULT_PASS=guest
+        image: rabbitmq:3.10-management
+
+    sqlserver2019:
+        hostname: sqlserver2019
+        container_name: sqlserver2019
+        ports:
+            - 1433:1433
+        environment:
+            - ACCEPT_EULA=Y
+            - SA_PASSWORD=UnityExercise2019
+        # image: mcr.microsoft.com/mssql/server:2019-latest
+        image: private-sqlserver2019
+        build:
+            context: .
+            dockerfile: ./Dockerfile.SqlServer
+
+    unityexerciseweb:
+        hostname: unityexerciseweb
+        container_name: unityexerciseweb
+        image: unityexerciseweb
+        # environment:
+        #     - ASPNETCORE_ENVIRONMENT=Development
+        #     - ASPNETCORE_URLS=https://+:443;http://+:80
+        ports:
+            - 8000:80
+            - 8001:443
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+        depends_on:
+            - rabbitmq-server
+            - sqlserver2019

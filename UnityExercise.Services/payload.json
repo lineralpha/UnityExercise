@@ -1,0 +1,10 @@
+{
+  "ts": "1530228282",
+  "sender": "testy-test-service",
+  "message": {
+    "foo": "bar",
+    "baz": "bang"
+  },
+  "sent-from-ip": "1.2.3.4",
+  "priority": 2
+}

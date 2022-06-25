@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "JSON Schema for payload JSON format",
+  "type": "object",
+  "required": [ "ts", "sender", "message" ],
+  "additionalProperties": false,
+  "properties": {
+    "ts": {
+      "description": "must be present and a valid unix timestamp",
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)$"
+    },
+    "sender": {
+      "description": "must be present and a string",
+      "type": "string",
+      "pattern": ".+"
+    },
+    "message": {
+      "description": "must be present, and have at least one field set",
+      "type": "object",
+      "properties": {
+        "foo": { "type": "string", "pattern": ".+" },
+        "baz": { "type": "string", "pattern": ".+" }
+      },
+      "anyOf": [
+        { "required": [ "foo" ] },
+        { "required": [ "baz" ] }
+      ]
+    },
+    "sent-from-ip": {
+      "description": "optional, but must be a valid ipv4 address",
+      "type": "string",
+      "format": "ipv4"
+    },
+    "priority": {
+      "description": "optional, give it integer type to match the example json object",
+      "type": "integer"
+    }
+  }
+}
