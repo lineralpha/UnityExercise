@@ -1,4 +1,8 @@
 # UnityExercise
+
+## Part 0 - Questions and Answers
+See this [doc](docs/answers.md)
+
 ## Part 1 - App design and code structure
 There are 3 projects. Key components and services:
 - UnityExercise.Web: for the REST API.
@@ -73,7 +77,7 @@ docker compose -f docker-compose.yml up
 ```
 This time, use Postman to test and verify the REST API as now the app is running in "Production" environment.
 
-![Screenshot](UnityExercise-WebApi.JPG)
+![Screenshot](docs/UnityExercise-WebApi.JPG)
 
 
 Caveats:
@@ -105,7 +109,7 @@ Follow the instructions in <code>k8s-depl/app-k8s-deploy.sh</code> to manually d
 
 Once everything is online, open the swagger UI in brower using the ip address got from running "<code>minikube service unityapp-service</code>". Below is the screenshot showing the logs output from the app running in k8s cluster.
 
-![Screenshot](k8s-app-logs.jpg)
+![Screenshot](docs/k8s-app-logs.jpg)
 
 
 ## Part 5 - Productionization
