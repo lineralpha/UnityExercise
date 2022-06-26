@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: unityapp
+  template:
+    metadata:
+      labels:
+        app: unityapp
+    spec:
+      containers:
+        - name: unityapp
+          image: alphaliner/unityexerciseweb:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 80
+            - containerPort: 443
+          env:
+            # "Development" for demo
+            - name: ASPNETCORE_ENVIRONMENT
+              value: "Development"
+            - name: MSSQL-HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: app-configmap
+                  key: mssql-host
+            - name: MSSQL-SA-PASS
+              valueFrom:
+                secretKeyRef:
+                  name: app-secret
+                  key: mssql-sa-password
+            - name: RabbitMQ__Hostname
+              valueFrom:
+                configMapKeyRef:
+                  name: app-configmap
+                  key: rabbitmq-host
+            - name: ConnectionStrings__Default
+              value: "Server=$(MSSQL-HOST); Database=UnityExercise; User ID=sa; Password=$(MSSQL-SA-PASS)"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: unityapp-service
+spec:
+  selector:
+    app: unityapp
+  type: NodePort
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8080
+      targetPort: 80
+      nodePort: 31080
+    # - protocol: TCP
+    #   port: 1443
+    #   targetPort: 443
+    #   nodePort: 31443

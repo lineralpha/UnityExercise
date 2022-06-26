@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mssql2019-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mssql2019
+  template:
+    metadata:
+      labels:
+        app: mssql2019
+    spec:
+      containers:
+        - name: mssql2019
+          image: alphaliner/private-sqlserver2019:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 1433
+          env:
+            - name: ACCEPT_EULA
+              value: "Y"
+            - name: MSSQL_SA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: app-secret
+                  key: mssql-sa-password
+            - name: SA_PASSWORD
+              value: $(MSSQL_SA_PASSWORD)
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mssql2019-service
+spec:
+  selector:
+    app: mssql2019
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 1433
+      targetPort: 1433
+      nodePort: 31433

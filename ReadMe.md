@@ -1,5 +1,5 @@
 # UnityExercise
-## App design and code structure
+## Part 1 - App design and code structure
 There are 3 projects. Key components and services:
 - UnityExercise.Web: for the REST API.
   1. PayloadController: the controller for handling http requests. It calls <code>PayloadValidator</code> to validate client input before sending the input data to the message queue.
@@ -11,7 +11,7 @@ There are 3 projects. Key components and services:
   1. IPayloadService: expose service API to create payload.
   2. PayloadValidator: use it to validate payload input according to the json schema <code>payload-schema.json</code>.
   
-## Build and run locally in development environment (on Windows) 
+## Part 2 - Build and run locally in development environment (on Windows) 
 ### 1. Prerequisites
 .NET 5 SDK + AspNetCore 5.0 runtime:
 
@@ -33,7 +33,7 @@ Open in browser http://localhost:15672/ to validate RabbitMQ is running.
 
 ### 3. Prepare a SQL Server. 
 You can use a local SQL Express or spin up a [SQL Server container][L1].
-Open <code>UnityExercise\UnityExercise.Web\appsettings.json</code>, or <code>UnityExercise\UnityExercise.Web\appsettings.Development.json</code>, depending on what environment you run the app (development or production). Change the following <code>ConnectionStrings</code> accordingly (by default, a local SQL Express instance is used for development):
+Open <code>UnityExercise.Web/appsettings.json</code>, or <code>UnityExercise.Web/appsettings.Development.json</code>, depending on what environment you run the app (development or production). Change the following <code>ConnectionStrings</code> accordingly (by default, a local SQL Express instance is used for development):
 ```
 "ConnectionStrings": {
     "Default": "Server=(LocalDb)\\MSSQLLocalDB;Database=UnityExercise;Trusted_Connection=True;"
@@ -41,10 +41,10 @@ Open <code>UnityExercise\UnityExercise.Web\appsettings.json</code>, or <code>Uni
 ```
 
 ### 4. Create Database on Your SQL Server
-Run script: <code>.\sqlserver\init-db.sql</code>
+Run script: <code>sqlserver/init-db.sql</code>
 
 ### 5. Build and run the app:
-CD to <code>UnityExercise\UnityExercise.Web</code> folder, launch
+CD to <code>UnityExercise.Web</code> folder, launch
 ```
 dotnet run
 ```
@@ -66,12 +66,12 @@ info: Microsoft.Hosting.Lifetime[0]
 ### 6. Test and verify app
 Open in browser: http://localhost:5000/swagger/index.html. You can test the Payload/Create REST API from the Swagger webpage.
 
-## Run the app in container environment
+## Part 3 - Run the app in container environment
 I've put together a docker-compose.yml file (including Dockerfile and other necessary scripts) that spins up everything. Simply run the docker-compose command:
 ```
 docker compose -f docker-compose.yml up
 ```
-This time, use Postman to test and verify the REST API as Swagger UI doesn' seem to work now.
+This time, use Postman to test and verify the REST API as now the app is running in "Production" environment.
 
 ![Screenshot](UnityExercise-WebApi.JPG)
 
@@ -90,7 +90,26 @@ Caveats:
             }
 
 ```
-## Deploy to k8s cluster
+## Part 4 - Deploy to k8s cluster
+I used minikube on local laptop to proof the concept thus I did not use helm charts. And no need to use persistent volumes either. All scripts and k8s deployment files are in the <b>k8s-depl</b> subfolder. 
+
+For simplicity, I've published the app images to docker hub. Pull these two container images and add them to minikube cache (RabbitMQ will be pulled from the official image during pod deployment).
+```
+docker pull alphaliner/unityexerciseweb
+docker pull alphaliner/private-sqlserver2019
+
+minikube cache add alphaliner/unityexerciseweb
+minikube cache add alphaliner/private-sqlserver2019
+```
+Follow the instructions in <code>k8s-depl/app-k8s-deploy.sh</code> to manually deploy all services.
+
+Once everything is online, open the swagger UI in brower using the ip address got from running "<code>minikube service unityapp-service</code>". Below is the screenshot showing the logs output from the app running in k8s cluster.
+
+![Screenshot](k8s-app-logs.jpg)
+
+
+## Part 5 - Productionization
+Have run out of time. Skip this part.
 
 [L1]: https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-docker-container-deployment?view=sql-server-ver15&pivots=cs1-bash
 [L2]: https://stackoverflow.com/questions/31746182/docker-compose-wait-for-container-x-before-starting-y/41854997#41854997

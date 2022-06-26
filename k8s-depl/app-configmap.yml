@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-configmap
+data:
+  mssql-host: mssql2019-service
+  rabbitmq-host: rabbitmq
