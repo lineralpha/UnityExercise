@@ -95,7 +95,7 @@ Caveats:
 
 ```
 ## Part 4 - Deploy to k8s cluster
-I used minikube on local laptop to proof the concept thus I did not use helm charts. And no need to use persistent volumes either. All scripts and k8s deployment files are in the <b>k8s-depl</b> subfolder. 
+I used minikube on local laptop to proof the concept. All scripts and k8s deployment files are in the <b>k8s-depl</b> subfolder. 
 
 For simplicity, I've published the app images to docker hub. Pull these two container images and add them to minikube cache (RabbitMQ will be pulled from the official image during pod deployment).
 ```
@@ -107,7 +107,7 @@ minikube cache add alphaliner/private-sqlserver2019
 ```
 Follow the instructions in <code>k8s-depl/app-k8s-deploy.sh</code> to manually deploy all services.
 
-Once everything is online, open the swagger UI in brower using the ip address got from running "<code>minikube service unityapp-service</code>". Below is the screenshot showing the logs output from the app running in k8s cluster.
+Once everything is online, open the swagger UI in browser using the ip address got from running "<code>minikube service unityapp-service</code>". Below is the screenshot showing the logs output from the app running in k8s cluster.
 
 ![Screenshot](docs/k8s-app-logs.jpg)
 
