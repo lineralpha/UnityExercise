@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31313.79
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32519.379
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnityExercise.Web", "UnityExercise.Web\UnityExercise.Web.csproj", "{A23930F0-2DB2-4C98-823F-8761799A68DD}"
 EndProject
@@ -11,9 +11,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnityExercise.Services", "U
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{05D7F26E-2A7B-40F1-893E-B05060B77B97}"
 	ProjectSection(SolutionItems) = preProject
+		docs\k8s-app-logs.jpg = docs\k8s-app-logs.jpg
 		ReadMe.md = ReadMe.md
-		Take Home Assignment.pdf = Take Home Assignment.pdf
-		UnityExercise-WebApi.JPG = UnityExercise-WebApi.JPG
+		docs\Take Home Assignment.pdf = docs\Take Home Assignment.pdf
+		docs\UnityExercise-WebApi.JPG = docs\UnityExercise-WebApi.JPG
 	EndProjectSection
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{8333E9F1-5780-467A-95EE-1A9155C9D6F7}"

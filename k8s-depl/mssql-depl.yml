@@ -1,3 +1,5 @@
+# https://github.com/microsoft/sqlworkshops-sql2019workshop
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -28,6 +30,7 @@ spec:
                   key: mssql-sa-password
             - name: SA_PASSWORD
               value: $(MSSQL_SA_PASSWORD)
+          resources: 
 ---
 apiVersion: v1
 kind: Service

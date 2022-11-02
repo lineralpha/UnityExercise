@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mssql-azure-deployment
+spec:
+  replicas: 1
+  selector:
+     matchLabels:
+       app: mssql
+  template:
+    metadata:
+      labels:
+        app: mssql
+    spec:
+      terminationGracePeriodSeconds: 30
+      hostname: mssql2019
+      securityContext:
+        fsGroup: 10001
+      containers:
+      - name: mssql2019
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        ports:
+        - containerPort: 1433
+        env:
+        - name: ACCEPT_EULA
+          value: "Y"
+        - name: SA_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mssql-secret
+              key: mssql-sa-password
+        # resources are required if wanting to use autoscaler
+        resources:
+          requests:
+            # 1CPU = 1 physical core or 1 virtual core
+            # this requests a quarter CPU time as much as if you asked for 1 CPU
+            cpu: 250m
+            memory: 1Gi
+          limits:
+            cpu: 500m
+            memory: 2Gi
+        volumeMounts:
+        - name: mssql-storage
+          mountPath: /var/opt/mssql
+      # the docker doc has a much better explanation on how different volumes work
+      # https://docs.docker.com.xy2401.com/ee/ucp/kubernetes/storage/use-nfs-volumes/
+      volumes:
+      - name: mssql-storage
+        persistentVolumeClaim:
+          claimName: mssql-storage-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mssql-service
+spec:
+  selector:
+    app: mssql
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 1433
+      targetPort: 1433
+  

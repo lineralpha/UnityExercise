@@ -56,6 +56,8 @@ spec:
             timeoutSeconds: 10
           imagePullPolicy: Always
           env:
+            # pod created from statefulset has deterministic name
+            # this example will have pod name: rabbitmq0
             - name: MY_POD_NAME
               valueFrom:
                 fieldRef:
@@ -99,6 +101,9 @@ spec:
       nodePort: 31672
     - name: amqp
       protocol: TCP
+      # the port of the service itself
       port: 5672
+      # the port of the container exposed
       targetPort: 5672
+      # port exposed to the node for LoadBalancer/NodePort service
       nodePort: 30672
