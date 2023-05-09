@@ -1,7 +1,10 @@
-﻿using System;
+using System;
 
 namespace UnityExercise.MQ
 {
+    /// <summary>
+    /// Configuration for RabbitMQ
+    /// </summary>
     public class RabbitMQConfiguration
     {
         public string Hostname { get; set; }

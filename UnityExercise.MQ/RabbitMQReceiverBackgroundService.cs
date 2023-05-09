@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -13,6 +13,10 @@ using System.Threading.Tasks;
 
 namespace UnityExercise.MQ
 {
+    /// <summary>
+    /// A long-running background service monitoring RabbitMQ and dispatching incoming messages
+    /// to subscribing receivers.
+    /// </summary>
     public sealed class RabbitMQReceiverBackgroundService : BackgroundService
     {
         private readonly RabbitMQConfiguration _rabbitmqConfig;

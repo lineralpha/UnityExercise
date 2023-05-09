@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 
 namespace UnityExercise.MQ
 {
@@ -7,6 +7,9 @@ namespace UnityExercise.MQ
     /// </summary>
     public interface IMessageSender
     {
+        /// <summary>
+        /// Sends a message to message queue.
+        /// </summary>
         Task SendMessageAsync<T>(T message);
     }
 }

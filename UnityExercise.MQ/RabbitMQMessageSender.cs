@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace UnityExercise.MQ
 {
+    /// <summary>
+    /// Implementing <see cref="IMessageSender"/> and providing message sending service to clients.
+    /// </summary>
     public class RabbitMQMessageSender : IMessageSender, IDisposable
     {
         private readonly ILogger<RabbitMQMessageSender> _logger;
